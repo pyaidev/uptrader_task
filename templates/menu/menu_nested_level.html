@@ -1,0 +1,24 @@
+{% if menu_item.is_active %}
+  {% comment %}
+    Если мной правильно понят пункт 7 ТЗ, то здесь должно быть
+    реализована возможность задавать URL страницы как явно, так и
+    через тег URL. Для примера сдеано и то и другое
+  {% endcomment %}
+  <li><a href="{% url 'page' page_id=menu_item.page_id %}">{{ menu_item.title }} - Сейчас вы здесь</a>
+    {% else %}
+  <li><a href="{{ menu_item.url }}">{{ menu_item.title }}</a>
+{% endif %}
+{% if menu_item.children %}
+  {% if menu_item.is_opened %}
+    <ul>Открытое подменю
+  {% else %}
+    <ul>
+  {% endif %}
+{% for child in menu_item.children %}
+  {% with menu_item=child %}
+    {% include "menu/menu_nested_level.html" %}
+  {% endwith %}
+{% endfor %}
+</ul>
+{% endif %}
+</li>

@@ -1,0 +1,7 @@
+<ul>
+  {% for menu_item in menu %}
+    {% if not menu_item.parent_id %}
+      {% include "menu/menu_nested_level.html" %}
+    {% endif %}
+  {% endfor %}
+</ul>
